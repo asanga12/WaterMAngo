@@ -1,0 +1,47 @@
+<h1 id="tableLabel">Tap Mango Watering System</h1>
+
+
+
+<p *ngIf="!forecasts"><em>Loading...</em></p>
+
+
+<div class="form-row">
+  <div class="col">
+    <label for="formGroupExampleInput">In between watering time:seconds</label>
+    <input type="text" [(ngModel)]="watertime" class="form-control" placeholder="In between watering time:seconds">
+  </div>
+  <div class="col">
+    <label for="formGroupExampleInput">Alert time:seconds</label>
+    <input type="text" [(ngModel)]="alerttime" class="form-control" placeholder="Alert time:seconds">
+  </div>
+</div>
+
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+
+      <th scope="col">Plant ID</th>
+      <th scope="col">Plant Name</th>
+      <th scope="col">Last water time</th>
+      <th scope="col">Check</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let plant of Plants;index as i">
+      <th scope="row">{{plant.plantid}}</th>
+      <td>{{plant.plantName}}</td>
+      <td>{{plant.lastWatered  | date: 'dd MMM yyyy hh:mm a'}}</td>
+      <td>
+
+        <button [disabled]="checkWaterTime(plant)"
+                (click)="waterme(plant)"
+                [ngClass]="{'btn-danger': checkAlert(plant)<0 }"
+                type="button" class="btn  btn-success">
+          Water me
+        </button>
+
+      </td>
+    </tr>
+
+  </tbody>
+</table>
